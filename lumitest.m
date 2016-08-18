@@ -1,4 +1,4 @@
-function lumitest(ser_port, screenno, pausedur)
+function lumitest(ser_port, screenno, pausedur, win_rect)
 % Simple script to automate monitor luminance measurements 
 % using a serial / USB-serial port based photometer. 
 %
@@ -20,6 +20,9 @@ end;
 if nargin < 3
     pausedur = 2;
 end;
+if nargin < 4
+    win_rect = [];
+end;
 
 % Create matrix for luminance values: [R; G; B; Sum]
 lval = zeros(52 * 4, 3);
@@ -38,7 +41,7 @@ try
     Screen('Preference', 'Verbosity', 1);    % 1 = print errors
     Screen('Preference', 'Skipsynctests', 1);
     
-    [win, wrect] = Screen('OpenWindow', screenno, [0 0 0]);
+    [win, wrect] = Screen('OpenWindow', screenno, [0 0 0], win_rect);
     Screen('TextFont', win, 'Arial');
     Screen('TextSize', win, 10);
     HideCursor();
