@@ -65,6 +65,7 @@ try
         base_lum = ph_measure(phdev);
         msg = sprintf('Baseline luminance: %2.3f cd/m^2, press ENTER to start measurements sequence!', base_lum); 
     else
+        base_lum = nan;
         msg = sprintf('Press ENTER to start measurements sequence!');
     end
     fprintf(msg);
@@ -107,16 +108,7 @@ try
     disp('Measurement complete.');
     
     % Show plot
-    figure();
-    hold on;
-    plot(0:5:255, lval(1:52, 4), 'r+');
-    plot(0:5:255, lval(53:104, 4), 'g+');
-    plot(0:5:255, lval(105:156, 4), 'b+');
-    plot(0:5:255, lval(157:208, 4), 'k+');
-    xlim([0 255]);
-    title('Screen Luminance (use file menu to save figure)');
-    xlabel('Pixel RGB Value [0..255]');
-    ylabel('Luminance (cd/m^2)');
+    plot_luminance_curves(lval);
 
     Screen('CloseAll');
     if ~manual
